@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alumnos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Hipo Edu</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarAlumnoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Alumnos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarAlumnoDropdown">
+                        <li><a class="dropdown-item" th:href="@{/alumnos/lista}">Ver Alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/alumnos/nuevo}">Crear Alumno</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarMateriaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Materias
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarMateriaDropdown">
+                        <li><a class="dropdown-item"th:href="@{/materias/listar}">Ver Materias</a></li>
+                        <li><a class="dropdown-item"th:href="@{/materias/nueva}">Crear Materia</a></li>
+                        <li><a class="dropdown-item" th:href="@{/materias/buscarPorCurso}">Buscar Por Curso</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarCursoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Cursos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarCursoDropdown">
+                        <li><a class="dropdown-item" th:href="@{/cursos/listar}">Ver Cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/cursos/nuevo}">Crear Curso</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarCursoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Profesores
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarCursoDropdown">
+                        <li><a class="dropdown-item" th:href="@{/profesores/listar}">Ver Profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/profesores/nuevo}">Crear Profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/profesores/reasignarMaterias}">Reasignaciones</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Lista de Alumnos</h1>
+        <div class="text-end mb-3">
+            <a href="/alumnos/nuevo" class="btn btn-success">Nuevo Alumno</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Legajo</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Año Ingreso</th>
+                    <th>Año Egreso</th>
+                    <th>Padre/Madre/Tutor</th>
+                    <th>Telefono</th>
+                    <th>Curso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="alumno : ${alumnos}">
+                    <td th:text="${alumno.legajo}"></td>
+                    <td th:text="${alumno.nombre}"></td>
+                    <td th:text="${alumno.apellido}"></td>
+                    <td th:text="${alumno.dni}"></td>
+                    <td th:text="${alumno.añoIngreso}"></td>
+                    <td th:text="${alumno.añoEgreso}"></td>
+                    <td th:text="${alumno.madre}"></td>
+                    <td th:text="${alumno.telefonoMadre}"></td>
+                    <td th:text="${alumno.curso != null? alumno.curso.año + ' ' + alumno.curso.division + ' ' + alumno.curso.ciclo : 'sin curso' }"></td>
+                    <td>
+                        <a th:href="@{'/alumnos/' + ${alumno.dni}}" class="btn btn-info btn-sm">Ver Notas</a>
+                        <a th:href="@{'/alumnos/editar/' + ${alumno.id}}" class="btn btn-primary btn-sm">Editar</a>
+                        <a th:href="@{'/alumnos/eliminar/' + ${alumno.id}}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

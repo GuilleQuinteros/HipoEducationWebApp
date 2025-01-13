@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+  <head>
+    <title>Nuevo Profesor</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Hipo Edu</a>
+        <button  class="navbar-toggler"  type="button"   data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarAlumnoDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Alumnos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarAlumnoDropdown">
+                <li>
+                  <a class="dropdown-item" th:href="@{/alumnos/lista}"
+                    >Ver Alumnos</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/alumnos/nuevo}"
+                    >Crear Alumno</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarMateriaDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Materias
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarMateriaDropdown">
+                <li>
+                  <a class="dropdown-item" th:href="@{/materias/listar}"
+                    >Ver Materias</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/materias/nueva}"
+                    >Crear Materia</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/materias/buscarPorCurso}"
+                    >Buscar Por Curso</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarCursoDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Cursos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarCursoDropdown">
+                <li>
+                  <a class="dropdown-item" th:href="@{/cursos/listar}"
+                    >Ver Cursos</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/cursos/nuevo}"
+                    >Crear Curso</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarCursoDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Profesores
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarCursoDropdown">
+                <li>
+                  <a class="dropdown-item" th:href="@{/profesores/listar}"
+                    >Ver Profesores</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/profesores/nuevo}"
+                    >Crear Profesores</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    th:href="@{/profesores/reasignarMaterias}"
+                    >Reasignaciones</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <h1
+        th:text="${profesor.id == null ? 'Nuevo Profesor' : 'Editar Profesor'}"  ></h1>
+      <form  th:action="@{/profesores/editar/__${profesor.id}__}"   th:object="${profesor}"  method="post" >
+        <!-- Campo id   -->
+        <div class="mb-3"><input type="hidden" th:field="*{id}" />
+        </div>
+
+        <!-- Campo Nombre -->
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input   type="text"   class="form-control"    id="nombre"   name="nombre"  th:field="*{nombre}"  required />
+        </div>
+
+        <!-- Campo Apellido -->
+        <div class="mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input  type="text"  class="form-control"  id="apellido"   name="apellido"   th:field="*{apellido}" required />
+        </div>
+
+        <!-- Campo DNI -->
+        <div class="mb-3">
+          <label for="dni" class="form-label">DNI</label>
+          <input
+            type="text"
+            class="form-control"
+            id="dni"
+            name="dni"
+            th:field="*{dni}"
+            required
+          />
+        </div>
+
+        <!-- Campo Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            th:field="*{email}"
+            required
+          />
+        </div>
+
+        <!-- Campo Teléfono -->
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            id="telefono"
+            name="telefono"
+            th:field="*{telefono}"
+            required
+          />
+        </div>
+
+        <!-- Tabla de materias asignadas -->
+        <div class="mb-3">
+          <label class="form-label">Materias y Cursos Asignados</label>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Materia</th>
+                <th>Cursos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="materia : ${profesor.materias}">
+                <td th:text="${materia.nombre}"></td>
+                <td>
+                  <ul>
+                    <li
+                      th:each="curso : ${materia.cursos}"
+                      th:text="${curso.año} + ' ' + ${curso.division}"
+                    ></li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Selección de materias asignadas
+        <div class="mb-3">
+          <label for="materias" class="form-label">Materias Asignadas</label>
+          <select
+            id="materias"
+            name="materias"
+            th:field="*{materias}"
+            class="form-select"
+            multiple
+          >
+            <option
+              th:each="materia : ${materias}"
+              th:value="${materia.id}"
+              th:text="${materia.nombre}"
+              th:selected="${profesor.materias != null && profesor.materias.contains(materia)}"
+            ></option>
+          </select>
+        </div> -->
+
+        <!-- Selección de Taller CBT (opcional) -->
+        <div class="mb-3">
+          <label for="tallerCbt" class="form-label"
+            >Taller CBT (Opcional)</label>
+          <select id="tallerCbt"  name="tallerCbt"  th:field="*{tallerCbt}"  class="form-select"  >
+            <option value="" th:text="'-- No asignar taller --'"> -- No asignar taller -- </option>
+            <option
+              th:each="taller : ${talleres}"
+              th:value="${taller.id}"
+              th:text="${taller.nombre}"
+            ></option>
+          </select>
+        </div>
+
+        <!-- Tipo de Profesor (Titular, Suplente, Interino) -->
+        <div class="mb-3">
+          <label for="tipo" class="form-label">Situacion Revista</label>
+          <select
+            id="tipo"
+            name="tipo"
+            th:field="*{tipo}"
+            class="form-select"
+            required
+          >
+            <option
+              th:value="TITULAR"
+              th:selected="${profesor.tipo == 'TITULAR'}"
+            >
+              Titular
+            </option>
+            <option
+              th:value="SUPLENTE"
+              th:selected="${profesor.tipo == 'SUPLENTE'}"
+            >
+              Suplente
+            </option>
+            <option
+              th:value="INTERINO"
+              th:selected="${profesor.tipo == 'INTERINO'}"
+            >
+              Interino
+            </option>
+            <option
+              th:value="INACTIVO"
+              th:selected="${profesor.tipo == 'INACTIVO'}"
+            >
+              Inactivo
+            </option>
+          </select>
+        </div>
+
+        <!-- Botón de Guardar -->
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="/profesores/listar" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
